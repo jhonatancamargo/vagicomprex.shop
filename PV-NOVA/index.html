@@ -8,7 +8,7 @@
     'https://seguro.vestmom.com.br/r/P74QGRQTXF'  /* 6 frascos - R$ 267,80 */
   ];
   var WHATSAPP=''; /* WhatsApp SEM numero por enquanto - depois coloque: 'https://wa.me/55SEUNUMERO' */
-  function go(url){ if(window.fbq){try{fbq('track','InitiateCheckout');}catch(e){}} window.location.href=url; }
+  function go(url){ var qs=(window.location.search||'').replace(/^\?/,''); if(qs){url+=(url.indexOf('?')>=0?'&':'?')+qs;} if(window.fbq){try{fbq('track','InitiateCheckout');}catch(e){}} window.location.href=url; }
   document.querySelectorAll('button.rounded-3xl.border-2').forEach(function(b,i){
     b.style.cursor='pointer';
     b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();go(KIT_LINKS[i]||KIT_LINKS[0]);},true);
