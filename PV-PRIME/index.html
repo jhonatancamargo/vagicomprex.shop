@@ -3,9 +3,9 @@
 (function(){
   /* checkout Yampi (VestMom) - 1 link por kit, na ordem dos cards: 1 / 3 / 6 frascos */
   var KIT_LINKS=[
-    'https://plataforma-vendas.pages.dev/checkout/vagicomprex-v2?v=1-sache', /* 1 frasco - R$ 98,90 - TESTE plataforma propria */
-    'https://plataforma-vendas.pages.dev/checkout/vagicomprex-v2?v=3-sache', /* 3 frascos - R$ 167,90 */
-    'https://plataforma-vendas.pages.dev/checkout/vagicomprex-v2?v=6-sache'  /* 6 frascos - R$ 267,90 */
+    'https://seguro.vagicomprex.shop/checkout/vagicomprex-v2?v=1-sache', /* 1 frasco - R$ 98,90 - TESTE plataforma propria */
+    'https://seguro.vagicomprex.shop/checkout/vagicomprex-v2?v=3-sache', /* 3 frascos - R$ 167,90 */
+    'https://seguro.vagicomprex.shop/checkout/vagicomprex-v2?v=6-sache'  /* 6 frascos - R$ 267,90 */
   ];
   var WHATSAPP=''; /* WhatsApp SEM numero por enquanto - depois coloque: 'https://wa.me/55SEUNUMERO' */
   function go(url){ var qs=(window.location.search||'').replace(/^\?/,''); if(qs){url+=(url.indexOf('?')>=0?'&':'?')+qs;} if(window.fbq){try{fbq('track','InitiateCheckout');}catch(e){}} window.location.href=url; }
