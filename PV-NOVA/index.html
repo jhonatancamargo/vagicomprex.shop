@@ -7,7 +7,7 @@
     'https://seguro.vagicomprex.shop/checkout/vagicomprex?v=3-frascos', /* 3 frascos - R$ 167,90 */
     'https://seguro.vagicomprex.shop/checkout/vagicomprex?v=6-frascos'  /* 6 frascos - R$ 267,90 */
   ];
-  var WHATSAPP=''; /* >>> SEU numero do WhatsApp (formato 55DDDNUMERO). VAZIO = botao NAO aparece na pagina. Ex: 5551999998888 <<< */
+  var WHATSAPP=''; /* numero vem do PAINEL via /api/page-config — nao edite aqui. Vazio = botao nao aparece. */
   var WA_MSG='Olá! Quero saber mais sobre o Vagicomprex 💜';
   function waAff(){ try{ var m=(document.cookie||'').match(/(?:^|; )aff=([^;]+)/); if(m&&m[1])return decodeURIComponent(m[1]); var r=new URLSearchParams(location.search).get('ref'); if(r)return r; }catch(e){} return ''; }
   function waLink(){ if(!WHATSAPP)return ''; var num=String(WHATSAPP).replace(/[^0-9]/g,''); if(!num)return ''; var aff=waAff(); return 'https://wa.me/'+num+'?text='+encodeURIComponent(WA_MSG+(aff?(' (via '+aff+')'):'')); }
@@ -16,9 +16,16 @@
     b.style.cursor='pointer';
     b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();go(KIT_LINKS[i]||KIT_LINKS[0]);},true);
   });
-  document.querySelectorAll('button,a,[aria-label="Falar no WhatsApp"]').forEach(function(el){
-    if(!((el.getAttribute&&el.getAttribute('aria-label')==='Falar no WhatsApp')||/whatsapp/i.test(el.textContent||'')))return;if(!WHATSAPP){el.style.display='none';return;}el.style.cursor='pointer';el.addEventListener('click',function(e){e.preventDefault();var u=waLink();if(u)window.open(u,'_blank');},true);
-  });
+  function applyWhatsApp(){
+    document.querySelectorAll('button,a,[aria-label="Falar no WhatsApp"]').forEach(function(el){
+      if(!((el.getAttribute&&el.getAttribute('aria-label')==='Falar no WhatsApp')||/whatsapp/i.test(el.textContent||'')))return;
+      if(!WHATSAPP){el.style.display='none';return;}
+      el.style.display='';el.style.cursor='pointer';
+      if(!el.__waWired){el.__waWired=1;el.addEventListener('click',function(e){e.preventDefault();var u=waLink();if(u)window.open(u,'_blank');},true);}
+    });
+  }
+  applyWhatsApp();
+  try{fetch('https://seguro.vagicomprex.shop/api/page-config').then(function(r){return r.json();}).then(function(d){WHATSAPP=(d&&d.whatsapp)?d.whatsapp:'';applyWhatsApp();}).catch(function(){});}catch(e){}
   var cds=[].slice.call(document.querySelectorAll('.font-mono.tabular-nums')).filter(function(s){
     return /^\s*\d{1,2}\s*:\s*\d{2}\s*$/.test((s.textContent||'').replace(/[\u00a0\u200b]/g,' ').replace(/<!--.*?-->/g,''));
   });
