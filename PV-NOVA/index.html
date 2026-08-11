@@ -7,14 +7,17 @@
     'https://seguro.vagicomprex.shop/checkout/vagicomprex?v=3-frascos', /* 3 frascos - R$ 167,90 */
     'https://seguro.vagicomprex.shop/checkout/vagicomprex?v=6-frascos'  /* 6 frascos - R$ 267,90 */
   ];
-  var WHATSAPP=''; /* WhatsApp SEM numero por enquanto - depois coloque: 'https://wa.me/55SEUNUMERO' */
+  var WHATSAPP=''; /* >>> SEU numero do WhatsApp (formato 55DDDNUMERO). VAZIO = botao NAO aparece na pagina. Ex: 5551999998888 <<< */
+  var WA_MSG='Olá! Quero saber mais sobre o Vagicomprex 💜';
+  function waAff(){ try{ var m=(document.cookie||'').match(/(?:^|; )aff=([^;]+)/); if(m&&m[1])return decodeURIComponent(m[1]); var r=new URLSearchParams(location.search).get('ref'); if(r)return r; }catch(e){} return ''; }
+  function waLink(){ if(!WHATSAPP)return ''; var num=String(WHATSAPP).replace(/[^0-9]/g,''); if(!num)return ''; var aff=waAff(); return 'https://wa.me/'+num+'?text='+encodeURIComponent(WA_MSG+(aff?(' (via '+aff+')'):'')); }
   function go(url){ var qs=(window.location.search||'').replace(/^\?/,''); if(qs){url+=(url.indexOf('?')>=0?'&':'?')+qs;} if(window.fbq){try{fbq('track','InitiateCheckout');}catch(e){}} window.location.href=url; }
   document.querySelectorAll('button.rounded-3xl.border-2').forEach(function(b,i){
     b.style.cursor='pointer';
     b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();go(KIT_LINKS[i]||KIT_LINKS[0]);},true);
   });
-  document.querySelectorAll('button,a').forEach(function(el){
-    if(/whatsapp/i.test(el.textContent||'')){el.addEventListener('click',function(e){e.preventDefault();if(WHATSAPP){window.open(WHATSAPP,'_blank');}},true);}
+  document.querySelectorAll('button,a,[aria-label="Falar no WhatsApp"]').forEach(function(el){
+    if(!((el.getAttribute&&el.getAttribute('aria-label')==='Falar no WhatsApp')||/whatsapp/i.test(el.textContent||'')))return;if(!WHATSAPP){el.style.display='none';return;}el.style.cursor='pointer';el.addEventListener('click',function(e){e.preventDefault();var u=waLink();if(u)window.open(u,'_blank');},true);
   });
   var cds=[].slice.call(document.querySelectorAll('.font-mono.tabular-nums')).filter(function(s){
     return /^\s*\d{1,2}\s*:\s*\d{2}\s*$/.test((s.textContent||'').replace(/[\u00a0\u200b]/g,' ').replace(/<!--.*?-->/g,''));
