@@ -8,7 +8,7 @@
     'https://seguro.vagicomprex.shop/checkout/vagicomprex?v=6-frascos'  /* 6 frascos - R$ 267,90 */
   ];
   var WHATSAPP=''; /* numero vem do PAINEL via /api/page-config — nao edite aqui. Vazio = botao nao aparece. */
-  var WA_MSG='Olá! Quero saber mais sobre o Vagicomprex 💜';
+  var WA_MSG='Olá! Quero saber sobre o Vagicomprex Cápsulas 💜';
   function waAff(){ try{ var m=(document.cookie||'').match(/(?:^|; )aff=([^;]+)/); if(m&&m[1])return decodeURIComponent(m[1]); var r=new URLSearchParams(location.search).get('ref'); if(r)return r; }catch(e){} return ''; }
   function waLink(){ if(!WHATSAPP)return ''; var num=String(WHATSAPP).replace(/[^0-9]/g,''); if(!num)return ''; var aff=waAff(); return 'https://wa.me/'+num+'?text='+encodeURIComponent(WA_MSG+(aff?(' (via '+aff+')'):'')); }
   function go(url){ var qs=(window.location.search||'').replace(/^\?/,''); if(qs){url+=(url.indexOf('?')>=0?'&':'?')+qs;} if(window.fbq){try{fbq('track','InitiateCheckout');}catch(e){}} window.location.href=url; }
