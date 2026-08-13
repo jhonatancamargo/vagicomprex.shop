@@ -25,7 +25,7 @@
     });
   }
   applyWhatsApp();
-  try{fetch('https://seguro.vagicomprex.shop/api/page-config').then(function(r){return r.json();}).then(function(d){WHATSAPP=(d&&d.whatsapp)?d.whatsapp:'';applyWhatsApp();}).catch(function(){});}catch(e){}
+  try{fetch('https://seguro.vagicomprex.shop/api/page-config?page=pv-nova').then(function(r){return r.json();}).then(function(d){WHATSAPP=(d&&d.whatsapp)?d.whatsapp:'';applyWhatsApp();}).catch(function(){});}catch(e){}
   var cds=[].slice.call(document.querySelectorAll('.font-mono.tabular-nums')).filter(function(s){
     return /^\s*\d{1,2}\s*:\s*\d{2}\s*$/.test((s.textContent||'').replace(/[\u00a0\u200b]/g,' ').replace(/<!--.*?-->/g,''));
   });
