@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Método Aperto Natural</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --plum:#6E2A50;--plum-deep:#4A1D38;--rose:#B85C7E;--rose-soft:#F6E7EE;
+    --ink:#2C2028;--soft:#5F525A;--cream:#FBF7F5;--white:#fff;--line:#EADCE3;
+    --gold:#C79A54;--green:#3E7D5A;--danger:#C0453A;
+  }
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;font-size:17px}
+  .serif{font-family:Georgia,"Times New Roman",serif}
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:Georgia,serif;line-height:1.18;font-weight:700}
+  img{max-width:100%}
+  .center{text-align:center}
+
+  /* urgency bar */
+  .urg{background:var(--plum-deep);color:#fff;text-align:center;padding:9px 14px;font-size:13.5px;font-weight:600;letter-spacing:.02em}
+  .urg b{color:#FFD9A8}
+
+  /* hero */
+  .hero{background:radial-gradient(120% 90% at 100% 0%,var(--rose-soft),transparent 55%),var(--cream);padding:38px 0 30px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);font-weight:800;margin-bottom:14px}
+  .hero h1{font-size:33px;color:var(--plum-deep);margin-bottom:16px}
+  .hero h1 em{color:var(--rose);font-style:italic}
+  .hero .sub{font-size:18px;color:var(--soft);margin-bottom:24px}
+  .mock{width:210px;margin:6px auto 22px;aspect-ratio:210/297;border-radius:10px;
+    background:linear-gradient(150deg,var(--plum-deep),var(--plum) 55%,var(--rose));
+    box-shadow:0 20px 40px rgba(74,29,56,.32),0 4px 10px rgba(0,0,0,.2);
+    color:#fff;display:flex;flex-direction:column;justify-content:center;padding:26px 20px;position:relative;transform:rotate(-2deg)}
+  .mock .k{font-size:9px;letter-spacing:.28em;text-transform:uppercase;opacity:.85;margin-bottom:12px}
+  .mock h3{font-family:Georgia,serif;font-size:34px;line-height:1;color:#fff}
+  .mock .it{font-style:italic;font-size:13px;opacity:.9;margin-top:8px;font-family:Georgia,serif}
+  .mock .rl{width:44px;height:3px;background:var(--gold);margin:16px 0;border-radius:2px}
+  .mock .bdg{font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.5);border-radius:30px;padding:5px 11px;align-self:flex-start;margin-top:6px}
+
+  .cta{display:inline-block;background:linear-gradient(135deg,var(--rose),var(--plum));color:#fff;font-weight:800;
+    font-size:19px;padding:18px 30px;border-radius:14px;text-decoration:none;box-shadow:0 10px 24px rgba(110,42,80,.34);
+    letter-spacing:.01em;border:none;cursor:pointer;transition:transform .15s;animation:pulse 2s infinite}
+  .cta:hover{transform:translateY(-2px)}
+  @keyframes pulse{0%{box-shadow:0 10px 24px rgba(110,42,80,.34),0 0 0 0 rgba(184,92,126,.5)}70%{box-shadow:0 10px 24px rgba(110,42,80,.34),0 0 0 16px rgba(184,92,126,0)}100%{box-shadow:0 10px 24px rgba(110,42,80,.34),0 0 0 0 rgba(184,92,126,0)}}
+  @media (prefers-reduced-motion:reduce){.cta{animation:none}}
+  .cta-note{font-size:13px;color:var(--soft);margin-top:12px}
+
+  section{padding:44px 0}
+  .alt{background:var(--white)}
+  .plum-sec{background:linear-gradient(160deg,var(--plum-deep),var(--plum));color:#fff}
+  .plum-sec h2,.plum-sec h3{color:#fff}
+  h2.sec{font-size:27px;color:var(--plum-deep);margin-bottom:8px}
+  .sec-lead{color:var(--soft);font-size:16px;margin-bottom:24px}
+  .plum-sec .sec-lead{color:rgba(255,255,255,.85)}
+
+  /* pain list */
+  .pain{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .pain li{background:var(--cream);border:1px solid var(--line);border-radius:11px;padding:14px 16px 14px 46px;position:relative;font-size:15.5px}
+  .pain li::before{content:"✕";position:absolute;left:15px;top:14px;color:var(--danger);font-weight:800}
+
+  /* benefits/check */
+  .benef{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .benef li{padding-left:36px;position:relative;font-size:16px}
+  .benef li::before{content:"✓";position:absolute;left:0;top:1px;background:var(--green);color:#fff;width:22px;height:22px;border-radius:50%;text-align:center;line-height:22px;font-size:13px;font-weight:800}
+  .plum-sec .benef li::before{background:var(--gold)}
+
+  /* content cards */
+  .whatin{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+  .wi{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--rose);border-radius:10px;padding:15px 18px}
+  .wi b{color:var(--plum);display:block;margin-bottom:2px;font-size:16px}
+  .wi span{font-size:14.5px;color:var(--soft)}
+
+  /* testimonials */
+  .tcard{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 4px 14px rgba(74,29,56,.06)}
+  .stars{color:var(--gold);font-size:16px;letter-spacing:2px;margin-bottom:8px}
+  .tcard p{font-size:15px;font-style:italic;color:var(--ink);margin-bottom:10px}
+  .tname{font-size:13px;font-weight:700;color:var(--plum)}
+
+  /* offer */
+  .offer{background:var(--white);border:2px solid var(--rose);border-radius:20px;padding:30px 24px;text-align:center;box-shadow:0 16px 40px rgba(110,42,80,.15);max-width:420px;margin:0 auto}
+  .offer .from{color:var(--soft);text-decoration:line-through;font-size:19px}
+  .offer .price{font-family:Georgia,serif;font-size:58px;color:var(--plum-deep);line-height:1;margin:6px 0}
+  .offer .price small{font-size:22px;vertical-align:super}
+  .offer .cents{font-size:30px}
+  .offer .installment{color:var(--soft);font-size:15px;margin-bottom:18px}
+  .offer .tagline{background:var(--rose-soft);color:var(--plum);font-weight:700;font-size:14px;border-radius:30px;padding:6px 16px;display:inline-block;margin-bottom:18px}
+  .paylist{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;font-size:12.5px;color:var(--soft)}
+  .paylist span{background:var(--cream);border:1px solid var(--line);border-radius:6px;padding:4px 10px}
+  .instant{color:var(--green);font-weight:700;font-size:14px;margin-top:14px}
+
+  /* guarantee */
+  .guar{background:var(--white);border:1px dashed var(--gold);border-radius:16px;padding:26px 22px;text-align:center;max-width:520px;margin:0 auto}
+  .guar .seal{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#E7C583);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:15px;line-height:1.05;margin:0 auto 14px;text-align:center;box-shadow:0 8px 18px rgba(199,154,84,.35)}
+
+  /* faq */
+  details{background:var(--white);border:1px solid var(--line);border-radius:11px;margin-bottom:10px;overflow:hidden}
+  summary{padding:16px 18px;font-weight:700;cursor:pointer;list-style:none;font-size:15.5px;color:var(--plum);display:flex;justify-content:space-between;align-items:center;gap:10px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:22px;color:var(--rose);font-weight:400}
+  details[open] summary::after{content:"–"}
+  details .a{padding:0 18px 16px;color:var(--soft);font-size:15px}
+
+  /* countdown */
+  .count{display:flex;gap:10px;justify-content:center;margin:16px 0}
+  .count div{background:var(--plum-deep);color:#fff;border-radius:10px;padding:10px 14px;min-width:60px;text-align:center;font-family:Georgia,serif}
+  .count div b{font-size:26px;display:block;line-height:1}
+  .count div span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;opacity:.8}
+
+  footer{background:var(--plum-deep);color:rgba(255,255,255,.75);padding:34px 0;font-size:12.5px;text-align:center}
+  footer p{margin-bottom:8px;max-width:600px;margin-left:auto;margin-right:auto}
+
+  .editable{outline:2px dashed #d98b3f;outline-offset:2px}
+  @media(max-width:520px){.hero h1{font-size:27px}h2.sec{font-size:23px}.offer .price{font-size:48px}}
+</style>
+</head>
+<body>
+
+<div class="urg">⏳ <b>OFERTA DE LANÇAMENTO</b> — acesso imediato por tempo limitado</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap center">
+    <div class="eyebrow">Guia Prático · Saúde Íntima Feminina</div>
+    <h1 class="serif">Recupere a <em>Firmeza</em>, o Controle e o Prazer da Sua Intimidade</h1>
+    <p class="sub">O método natural de <strong>7 minutos por dia</strong> que devolve o "apertadinho" que o tempo, os partos e a menopausa levaram embora — <strong>em casa, sem cirurgia e sem remédio</strong>.</p>
+    <div class="mock">
+      <div class="k">Guia Prático</div>
+      <h3>Aperto<br>Natural</h3>
+      <div class="rl"></div>
+      <div class="it">O poder que sempre esteve em você</div>
+      <div class="bdg">Resultados em 21 dias</div>
+    </div>
+    <a href="#oferta" class="cta">QUERO MEU GUIA AGORA →</a>
+    <p class="cta-note">✅ Acesso imediato · 📱 Receba no celular · 🔒 Compra segura</p>
+  </div>
+</header>
+
+<!-- DOR -->
+<section>
+  <div class="wrap">
+    <h2 class="sec serif">Você se reconhece aqui?</h2>
+    <p class="sec-lead">Se você marcou pelo menos um destes, este guia foi feito pra você:</p>
+    <ul class="pain">
+      <li>Sente que <strong>perdeu firmeza</strong> depois dos filhos ou da chegada da menopausa</li>
+      <li>O prazer <strong>não é mais o mesmo</strong> — nem pra você, nem pra ele</li>
+      <li>Bate aquele <strong>receio silencioso</strong> de que ele perceba ou se afaste</li>
+      <li>Já pensou em procedimentos caros, mas <strong>tem medo ou não pode pagar</strong></li>
+      <li>Sente <strong>ressecamento e desconforto</strong> no dia a dia</li>
+      <li>Sente que <strong>perdeu um pouco da sua feminilidade</strong> e quer isso de volta</li>
+    </ul>
+  </div>
+</section>
+
+<!-- VIRADA / MECANISMO -->
+<section class="plum-sec">
+  <div class="wrap">
+    <h2 class="sec serif">A verdade que ninguém te conta</h2>
+    <p class="sec-lead">Cremes e géis dão alívio passageiro. A firmeza de verdade vem de outro lugar.</p>
+    <p style="margin-bottom:14px">Sua região íntima é sustentada por um músculo: o <strong>assoalho pélvico</strong>. Quando ele enfraquece — por parto, idade ou menopausa — vem a flacidez, a perda de controle e a queda do prazer.</p>
+    <p style="margin-bottom:20px">A boa notícia? Como <strong>todo músculo, ele volta a fortalecer com o treino certo</strong>. É isso que as orientais chamam de <em>pompoarismo</em> — e é exatamente o que você vai aprender, passo a passo, em apenas 7 minutos por dia.</p>
+    <ul class="benef">
+      <li><strong>Firmeza real e duradoura</strong> — não um efeito de horas</li>
+      <li><strong>Mais controle e sensibilidade</strong> no prazer</li>
+      <li><strong>Mais lubrificação</strong> e conforto no dia a dia</li>
+      <li><strong>Mais autoestima</strong> pra se sentir mulher de novo</li>
+    </ul>
+  </div>
+</section>
+
+<!-- O QUE VOCÊ RECEBE -->
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec serif">O que você vai receber</h2>
+    <p class="sec-lead">Um guia completo, direto ao ponto, pra aplicar hoje mesmo:</p>
+    <div class="whatin">
+      <div class="wi"><b>✦ O Método Aperto Natural completo</b><span>Os 4 exercícios fundamentais, explicados de forma simples, pra fazer sentada ou deitada, com total discrição.</span></div>
+      <div class="wi"><b>✦ Sua rotina de 21 dias</b><span>Um cronograma pronto, dia a dia, de apenas 7 minutos — é só seguir e sentir a evolução.</span></div>
+      <div class="wi"><b>✦ Os 5 hábitos que potencializam</b><span>O que fazer no seu dia pra acelerar os resultados (hidratação, alimentação, respiração e mais).</span></div>
+      <div class="wi"><b>✦ Os 3 erros que travam seu resultado</b><span>Evite as armadilhas que fazem a maioria desistir antes da hora.</span></div>
+    </div>
+    <p class="center" style="margin-top:24px"><a href="#oferta" class="cta">QUERO COMEÇAR AGORA →</a></p>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section>
+  <div class="wrap">
+    <h2 class="sec serif center">O que estão dizendo</h2>
+    <p class="sec-lead center">Mulheres que decidiram cuidar de si:</p>
+    <div class="tcard editable">
+      <div class="stars">★★★★★</div>
+      <p>"[COLE AQUI UM DEPOIMENTO REAL de cliente — WhatsApp, comentário ou print transcrito.]"</p>
+      <div class="tname">— [Nome], [cidade]</div>
+    </div>
+    <div class="tcard editable">
+      <div class="stars">★★★★★</div>
+      <p>"[Segundo depoimento real aqui.]"</p>
+      <div class="tname">— [Nome], [cidade]</div>
+    </div>
+    <div class="tcard editable">
+      <div class="stars">★★★★★</div>
+      <p>"[Terceiro depoimento real aqui.]"</p>
+      <div class="tname">— [Nome], [cidade]</div>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section id="oferta" class="alt">
+  <div class="wrap">
+    <h2 class="sec serif center">Comece hoje por um valor simbólico</h2>
+    <div class="count" id="cd">
+      <div><b id="h">00</b><span>horas</span></div>
+      <div><b id="m">00</b><span>min</span></div>
+      <div><b id="s">00</b><span>seg</span></div>
+    </div>
+    <div class="offer">
+      <div class="tagline">🔥 Oferta de lançamento</div>
+      <div class="from">De R$ 97,00</div>
+      <div class="price serif"><small>R$</small> 28<span class="cents">,70</span></div>
+      <div class="installment">ou 3x de R$ 9,57 no cartão · acesso imediato</div>
+      <a href="https://plataforma-vendas.pages.dev/checkout/Aperto-natural?v=exclusivo" class="cta" style="display:block">QUERO MEU GUIA AGORA →</a>
+      <div class="instant">⚡ Acesso IMEDIATO após o pagamento</div>
+      <div class="paylist"><span>💳 Cartão</span><span>📲 Pix</span><span>🔒 Compra segura</span><span>📱 Entrega no celular</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section>
+  <div class="wrap">
+    <div class="guar">
+      <div class="seal serif">7 DIAS<br>GARANTIA</div>
+      <h3 class="serif" style="color:var(--plum-deep);margin-bottom:8px">Risco zero pra você</h3>
+      <p style="color:var(--soft);font-size:15.5px">Experimente o método por <strong>7 dias</strong>. Se por qualquer motivo você não gostar, é só me chamar que <strong>devolvo 100% do seu dinheiro</strong> — sem perguntas, sem burocracia. O risco é todo meu. 💛</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec serif center" style="margin-bottom:20px">Perguntas frequentes</h2>
+    <details><summary>Funciona mesmo?</summary><div class="a">Sim. O fortalecimento do assoalho pélvico é reconhecido pela fisioterapia há décadas — é o mesmo princípio usado por profissionais. A diferença é que aqui está tudo simplificado pra você fazer sozinha, em casa.</div></details>
+    <details><summary>Em quanto tempo vejo resultado?</summary><div class="a">A maioria das mulheres começa a sentir mais controle já na 2ª semana, e firmeza perceptível a partir dos 21 dias, seguindo a rotina. A constância é o segredo.</div></details>
+    <details><summary>Preciso de algum aparelho ou produto?</summary><div class="a">Não! O método usa apenas o seu próprio corpo. Nada de aparelhos, cremes ou gastos extras.</div></details>
+    <details><summary>Serve pra menopausa e pós-parto?</summary><div class="a">Sim, é indicado justamente pra esses momentos. (Se você teve parto há pouco tempo ou tem alguma condição de saúde, consulte seu médico antes de começar.)</div></details>
+    <details><summary>Como recebo o guia?</summary><div class="a">É digital! Assim que o pagamento é confirmado, você recebe o acesso imediatamente, direto no seu celular. Pode ler quantas vezes quiser.</div></details>
+    <details><summary>É discreto?</summary><div class="a">Totalmente. A compra é sigilosa e o guia é 100% seu, pra ler com privacidade. Os exercícios são discretos, ninguém percebe.</div></details>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="plum-sec center">
+  <div class="wrap">
+    <h2 class="sec serif">Cuidar da sua intimidade não é vaidade.<br>É autoestima.</h2>
+    <p class="sec-lead">Por menos que um lanche, você começa hoje a reconquistar sua firmeza, seu prazer e sua confiança.</p>
+    <a href="#oferta" class="cta">QUERO MEU GUIA POR R$ 28,70 →</a>
+    <p style="margin-top:14px;font-size:13px;opacity:.8">Acesso imediato · Garantia de 7 dias · Risco zero</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Método Aperto Natural</strong></p>
+    <p>Este guia tem caráter educativo e informativo e não substitui a orientação de um profissional de saúde. Resultados variam conforme a constância da prática. Consulte um médico antes de iniciar, especialmente em caso de gravidez, pós-parto recente ou condições de saúde.</p>
+    <p>© Todos os direitos reservados · Conteúdo protegido.</p>
+  </div>
+</footer>
+
+<script>
+  // countdown evergreen: reinicia em 24h por visitante
+  (function(){
+    var KEY="an_deadline", now=Date.now();
+    var dl=localStorage.getItem(KEY);
+    if(!dl || dl-now<=0){ dl=now+24*3600*1000; localStorage.setItem(KEY,dl); }
+    function tick(){
+      var d=dl-Date.now(); if(d<0)d=0;
+      var h=Math.floor(d/3.6e6), m=Math.floor(d%3.6e6/6e4), s=Math.floor(d%6e4/1e3);
+      document.getElementById('h').textContent=String(h).padStart(2,'0');
+      document.getElementById('m').textContent=String(m).padStart(2,'0');
+      document.getElementById('s').textContent=String(s).padStart(2,'0');
+    }
+    tick(); setInterval(tick,1000);
+  })();
+</script>
+</body>
+</html>
