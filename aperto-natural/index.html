@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VagiComprex — Efeito Compressão e Fim do Ressecamento | Oferta Oficial</title>
-<meta name="description" content="Cápsulas de uso íntimo com efeito compressão. Recupere firmeza, lubrificação e confiança em até 7 dias. 100% natural, sem hormônios. Garantia de 30 dias.">
+<meta name="description" content="Cápsulas de uso íntimo com efeito compressão. Recupere firmeza, lubrificação e confiança já nos primeiros dias. 100% natural, sem hormônios. Garantia de 30 dias.">
 <meta property="og:title" content="VagiComprex — Firmeza, lubrificação e confiança em 7 dias">
 <meta property="og:description" content="Cápsulas de uso íntimo com efeito compressão. 100% natural, sem hormônios. Aprovado por milhares de mulheres.">
 <meta property="og:image" content="assets/hero-bottles-rKi9DuhF.webp">
@@ -189,7 +189,7 @@ footer a{color:#f4c968;text-decoration:none}
 
 <!-- BARRA URGÊNCIA -->
 <div class="bar">
-  <span>🔥 OFERTA OFICIAL COM DESCONTO • termina em <b id="cd">15:00</b></span>
+  <span>🔥 OFERTA OFICIAL • encerra hoje em <b id="cd">--:--:--</b></span>
   <span>🚚 Frete grátis + entrega discreta</span>
 </div>
 
@@ -455,15 +455,14 @@ function go(url){
 /* CTAs genéricos rolam até a seção de kits (só os botões dentro dos cards vão ao checkout) */
 function goKits(){ var e=document.getElementById('comprar'); if(e) e.scrollIntoView({behavior:'smooth'}); }
 
-/* === COUNTDOWN evergreen (15 min, reinicia) === */
+/* === COUNTDOWN — encerra hoje (23:59:59), mais crivel === */
 (function(){
   var el=document.getElementById('cd'); if(!el) return;
-  var KEY='vc_cd_end', now=Date.now(), end=parseInt(localStorage.getItem(KEY)||'0',10);
-  if(!end || end < now){ end = now + 15*60*1000; localStorage.setItem(KEY, end); }
+  function eod(){ var d=new Date(); d.setHours(23,59,59,999); return d.getTime(); }
   function tick(){
-    var d=Math.max(0,end-Date.now()), m=Math.floor(d/60000), s=Math.floor((d%60000)/1000);
-    el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-    if(d<=0){ end=Date.now()+15*60*1000; localStorage.setItem(KEY,end); }
+    var df=Math.max(0,eod()-Date.now());
+    var h=Math.floor(df/3600000), m=Math.floor((df%3600000)/60000), s=Math.floor((df%60000)/1000);
+    el.textContent=(h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
   }
   tick(); setInterval(tick,1000);
 })();
